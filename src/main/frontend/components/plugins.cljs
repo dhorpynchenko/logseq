@@ -1347,8 +1347,11 @@
   (rum/use-effect!
     (fn []
       (when (and (not db-restoring?)
-                 (or (not util/nfs?) nfs-granted?))
-        (ui-handler/exec-js-if-exists-&-allowed! t)))
+                 (or (not util/nfs?) nfs-granted?)) 
+        (js/setTimeout 
+         (fn [] 
+           (ui-handler/exec-js-if-exists-&-allowed! t))
+           1000)))
     [current-repo db-restoring? nfs-granted?])
   nil)
 
